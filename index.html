@@ -75,7 +75,7 @@
     const minHand = document.querySelector('.min-hand');
     const hourHand = document.querySelector('.hour-hand');
 
-    // function as done in tutorial
+    // Function as done in tutorial
     function setDate() {
       const now = new Date();
 
@@ -95,7 +95,33 @@
       hourHand.style.transform = `rotate(${hourDegrees}deg)`;
     }
 
-    setInterval(setDate, 1000);
+    // Refactored
+    function setDateRefactored() {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+
+      const secondsDegrees = convertTimeToDegrees(seconds);
+      const minutesDegrees = convertTimeToDegrees(minutes);
+      const hourDegrees = convertTimeToDegrees(hours);
+
+      transformStyle(secondHand, secondsDegrees);
+      transformStyle(minHand, minutesDegrees);
+      transformStyle(hourHand, hourDegrees);
+    }
+
+    function convertTimeToDegrees(time) {
+      const degrees = ((time / 60) * 360) + 90;
+      return degrees;
+    }
+
+    function transformStyle(target, degree) {
+      target.style.transform = `rotate(${degree}deg)`;
+    }
+
+    // setInterval(setDate, 1000);
+    setInterval(setDateRefactored, 1000);
   </script>
 </body>
 </html>
